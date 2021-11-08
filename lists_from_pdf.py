@@ -1,4 +1,3 @@
-import pandas
 import tabula
 import pandas as pd
 from extract_files import extract_all_files
@@ -29,6 +28,7 @@ def get_clean_list_from_pdf(liste):
 
 
 all_data = get_clean_list_from_pdf(extract_all_files())
-del all_data["A"]
-del all_data["B"]
-all_data.to_excel(excel_writer=r"E:\Projekte\Stahllisten\Output\outputliste.xlsx")
+print(all_data)
+#del all_data["A"]
+#del all_data["B"]
+#all_data.to_excel(excel_writer=r"E:\Projekte\Stahllisten\Output\outputliste.xlsx")
