@@ -6,8 +6,8 @@ import io
 
 
 def get_clean_list_from_pdf(liste):
-    number_of_tables = list(range(1, 501))
-    columns = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    columns = ["A", "DN mm", "Länge fix", "Gewicht fix kg", "kg/m", "B", "Länge bearb.", "Gewicht bearb"]
+    data_list = []
     for files in liste:
         """read PDF Tabula"""
         data = tabula.io.read_pdf(fr"E:\Projekte\Stahllisten\Listen\{files}", output_format="dataframe",
@@ -19,14 +19,16 @@ def get_clean_list_from_pdf(liste):
         x = 0
         y = 8
         """Assort Data in Data Frame with Values for each row"""
-        data_list = []
         for new_row in range(round(len(data) / 8)):
             new_row = data[x:y]
             data_list.append(new_row)
             x += 8
             y += 8
-        new_data = pd.DataFrame(data_list, columns= columns)
-        print(new_data)
+    new_data = pd.DataFrame(data_list, columns=columns)
+    return new_data
 
 
-get_clean_list_from_pdf(extract_all_files())
+all_data = get_clean_list_from_pdf(extract_all_files())
+del all_data["A"]
+del all_data["B"]
+all_data.to_excel(excel_writer=r"E:\Projekte\Stahllisten\Output\outputliste.xlsx")
