@@ -2,11 +2,11 @@ import tabula
 import pandas as pd
 
 
-def get_clean_list_from_pdf(checked_list, output):
+def get_clean_list_from_pdf(checked_list, output, path):
     index = ["6", "8", "10", "12", "14", "16", "18", "20", "22", "25", "26", "28", "32", "36", "40"]
     try:
-        f = open(r"E:\Projekte\Stahllisten\Output\Stahllisteconv.xlsx")
-        plans = pd.read_excel(r"E:\Projekte\Stahllisten\Output\Stahllisteconv.xlsx", index_col=[0])
+        f = open(fr"{output}\Stahllisteconv.xlsx")
+        plans = pd.read_excel(fr"{output}\Stahllisteconv.xlsx", index_col=[0])
 
     except IOError:
         plans = pd.DataFrame()
@@ -16,7 +16,7 @@ def get_clean_list_from_pdf(checked_list, output):
 
     for files in checked_list:
         """read PDF with Tabula& convert into *.csv File"""
-        tabula.convert_into(input_path=fr"E:\Projekte\Stahllisten\Listen\{files}",
+        tabula.convert_into(input_path=fr"{path}\{files}",
                             output_path=rf"{output}\outputliste.csv",
                             output_format="csv", pages="all")
 
